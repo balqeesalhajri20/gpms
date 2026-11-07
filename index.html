@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#081528">
+<title>G-PMS LAUNCH | العد التنازلي للإطلاق</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&display=swap">
+<style>
+:root{
+  --bg:#081528; --green:#0f2a4d; --green2:#1a3f73; --red:#b08a5c; --gold:#c8a77a; --gold-soft:#e6d2b0;
+  --ink:#ffffff; --muted:#c5d0e0; --card:rgba(255,255,255,.08); --line:rgba(255,255,255,.14);
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:grid; place-items:center; padding:20px; color:var(--ink);
+  font-family:"Cairo",Tahoma,Arial,sans-serif; background-color:var(--bg);
+  background-image:radial-gradient(circle at 15% 12%,rgba(200,167,122,.18),transparent 32%),linear-gradient(145deg,#081528,var(--green) 55%,#14305a);
+}
+.panel{
+  width:min(960px,100%); position:relative; text-align:center; overflow:hidden;
+  padding:clamp(22px,5vw,52px) clamp(16px,4vw,48px) clamp(24px,4vw,40px);
+  border:1px solid rgba(200,167,122,.65); border-radius:24px;
+  background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.025));
+  box-shadow:0 24px 70px rgba(0,0,0,.3);
+}
+.panel::before,.panel::after{content:"";position:absolute;left:0;width:100%;height:5px}
+.panel::before{top:0;background:var(--red)} .panel::after{bottom:0;background:var(--gold)}
+
+.bar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:clamp(14px,3vw,26px)}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--gold-soft)}
+.dot{width:10px;height:10px;border-radius:50%;background:#e6d2b0;box-shadow:0 0 0 0 rgba(230,210,176,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(230,210,176,0)}100%{box-shadow:0 0 0 0 rgba(230,210,176,0)}}
+.tools{display:flex;gap:8px}
+.btn{
+  font:inherit;font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;
+  background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 16px;min-height:38px;
+  transition:background .2s,border-color .2s;
+}
+.btn:hover{background:rgba(255,255,255,.16);border-color:var(--gold)}
+.btn:focus-visible,.unit:focus-visible{outline:3px solid var(--gold-soft);outline-offset:3px}
+
+h1{margin:0;font-size:clamp(36px,8vw,70px);font-weight:900;letter-spacing:.04em;line-height:1.15;direction:ltr}
+.sub{margin:6px 0 0;color:var(--gold-soft);font-size:clamp(15px,2.2vw,20px);font-weight:600}
+.rule{width:76px;height:3px;margin:20px auto 18px;background:var(--gold)}
+
+.hero{margin:0;font-size:clamp(64px,17vw,150px);font-weight:900;line-height:1;color:var(--gold-soft);
+  font-variant-numeric:tabular-nums;direction:ltr;letter-spacing:.02em;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+.hero-label{margin:6px 0 clamp(18px,3vw,30px);color:#e8e5dc;font-size:clamp(14px,2vw,18px);font-weight:600}
+
+.timer{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,2vw,18px);max-width:760px;margin:0 auto}
+.unit{
+  font:inherit;color:inherit;cursor:pointer;display:flex;flex-direction:column;align-items:center;
+  padding:14px 8px 12px;border-radius:16px;background:var(--card);border:1px solid var(--line);
+  transition:border-color .2s,background .2s,transform .15s;
+}
+.unit:hover{background:rgba(255,255,255,.13)}
+.unit:active{transform:scale(.97)}
+.unit[aria-pressed="true"]{border-color:var(--gold);background:rgba(200,167,122,.16)}
+.ring{position:relative;width:min(100%,128px);aspect-ratio:1}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:6}
+.ring .t{stroke:rgba(255,255,255,.12)}
+.ring .p{stroke:var(--gold);stroke-linecap:round;stroke-dasharray:289.03;stroke-dashoffset:0}
+.unit[data-u="seconds"] .p{stroke:var(--red)}
+.num{position:absolute;inset:0;display:grid;place-items:center;font-size:clamp(28px,6vw,44px);font-weight:800;
+  font-variant-numeric:tabular-nums;direction:ltr}
+.lab{margin-top:8px;color:#d9d6cb;font-size:14px;font-weight:600}
+
+.total{min-height:28px;margin:16px 0 0;color:var(--gold-soft);font-size:15px;font-weight:600}
+.total b{font-size:18px;font-variant-numeric:tabular-nums;direction:ltr;display:inline-block}
+
+.prog{max-width:760px;margin:22px auto 0}
+.track{height:10px;border-radius:99px;background:rgba(255,255,255,.12);overflow:hidden}
+.fill{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold-soft));transition:width .6s}
+.meta{display:flex;justify-content:space-between;gap:10px;margin-top:8px;font-size:13px;color:var(--muted)}
+.footer{margin-top:24px;color:var(--muted);font-size:13px;font-weight:600}
+
+.done .hero{color:#f4e6cc}
+.done .p{stroke:#f4e6cc}
+
+@media(max-width:560px){.timer{grid-template-columns:repeat(2,1fr)}.ring{width:min(100%,116px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="panel" id="panel">
+  <div class="bar">
+    <span class="live"><span class="dot"></span><span id="liveTxt"></span></span>
+    <div class="tools">
+      <button class="btn" id="fs" type="button"></button>
+      <button class="btn" id="lang" type="button"></button>
+    </div>
+  </div>
+
+  <noscript><p style="margin:0 0 16px;padding:10px 14px;border-radius:12px;background:rgba(200,167,122,.2);color:#f4e6cc;font-size:14px">العد التنازلي يحتاج تشغيل JavaScript. افتح الملف في متصفح مثل Safari أو Chrome، أو استخدم رابط الصفحة المباشر.<br>The countdown needs JavaScript. Open this file in a browser such as Safari or Chrome, or use the page link.</p></noscript>
+  <h1>G-PMS LAUNCH</h1>
+  <p class="sub" id="eyebrow"></p>
+  <div class="rule"></div>
+
+  <p class="hero" id="hero" aria-live="off">D-00</p>
+  <p class="hero-label" id="heroLabel"></p>
+
+  <div class="timer" role="group" id="timer">
+    <button class="unit" data-u="days" type="button" aria-pressed="false"><span class="ring"><svg viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="46"/><circle class="p" cx="50" cy="50" r="46"/></svg><span class="num">00</span></span><span class="lab"></span></button>
+    <button class="unit" data-u="hours" type="button" aria-pressed="false"><span class="ring"><svg viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="46"/><circle class="p" cx="50" cy="50" r="46"/></svg><span class="num">00</span></span><span class="lab"></span></button>
+    <button class="unit" data-u="minutes" type="button" aria-pressed="false"><span class="ring"><svg viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="46"/><circle class="p" cx="50" cy="50" r="46"/></svg><span class="num">00</span></span><span class="lab"></span></button>
+    <button class="unit" data-u="seconds" type="button" aria-pressed="false"><span class="ring"><svg viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="46"/><circle class="p" cx="50" cy="50" r="46"/></svg><span class="num">00</span></span><span class="lab"></span></button>
+  </div>
+  <p class="total" id="total"></p>
+
+  <div class="prog">
+    <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="pbar"><div class="fill" id="fill"></div></div>
+    <div class="meta"><span id="pStart"></span><span id="pPct"></span><span id="pEnd"></span></div>
+  </div>
+
+</main>
+
+<script>
+// Launch: 6 Dec 2026, 00:00 Oman time (UTC+4). START only drives the progress bar.
+const LAUNCH = new Date("2026-12-06T00:00:00+04:00").getTime();
+const START  = new Date("2024-01-01T00:00:00+04:00").getTime();
+const SPAN = LAUNCH - START;
+const C = 289.03;
+
+const T = {
+  ar:{live:"مباشر", eyebrow:"العد التنازلي للإطلاق", heroLabel:"يوم متبقٍ على الإطلاق", heroDone:"انطلقنا!", doneLabel:"تم الإطلاق رسميًا",
+      days:"يوم", hours:"ساعة", minutes:"دقيقة", seconds:"ثانية", btnLang:"English", fsOn:"ملء الشاشة", fsOff:"إغلاق الشاشة الكاملة",
+      total:"ما يعادل", footer:"محطة وطنية • سلطنة عمان", start:"البداية", launch:"الإطلاق", pct:"اكتمل", hint:"اضغط على أي وحدة لعرض الإجمالي"},
+  en:{live:"Live", eyebrow:"Countdown to launch", heroLabel:"Days until launch", heroDone:"We’re live!", doneLabel:"Officially launched",
+      days:"Days", hours:"Hours", minutes:"Minutes", seconds:"Seconds", btnLang:"العربية", fsOn:"Full screen", fsOff:"Exit full screen",
+      total:"Equals", footer:"A national milestone • Oman", start:"Start", launch:"Launch", pct:"complete", hint:"Tap any unit to see the total"}
+};
+const MS = {days:864e5, hours:36e5, minutes:6e4, seconds:1e3};
+let lang = "ar", sel = "hours";
+try { lang = localStorage.getItem("gpms-lang") || "ar"; } catch(e){}
+if (!T[lang]) lang = "ar";
+
+const $ = id => document.getElementById(id);
+const units = [...document.querySelectorAll(".unit")];
+const els = Object.fromEntries(units.map(u => [u.dataset.u, {
+  card:u, num:u.querySelector(".num"), ring:u.querySelector(".p"), lab:u.querySelector(".lab")}]));
+const pad = n => String(n).padStart(2,"0");
+const fmt = n => n.toLocaleString("en-US");
+const last = {};
+
+function dateStr(ms){
+  return new Intl.DateTimeFormat(lang==="ar"?"ar-OM-u-nu-latn":"en-GB",{dateStyle:"medium",timeZone:"Asia/Muscat"}).format(ms);
+}
+
+function applyLang(){
+  const t = T[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang==="ar" ? "rtl" : "ltr";
+  $("liveTxt").textContent = t.live;
+  $("eyebrow").textContent = t.eyebrow;
+  $("lang").textContent = t.btnLang;
+  $("pStart").textContent = `${t.start}: ${dateStr(START)}`;
+  $("pEnd").textContent = `${t.launch}: ${dateStr(LAUNCH)}`;
+  for (const k in els) els[k].lab.textContent = t[k];
+  $("timer").setAttribute("aria-label", t.hint);
+  fsLabel(); render(true);
+}
+
+function fsLabel(){ $("fs").textContent = document.fullscreenElement ? T[lang].fsOff : T[lang].fsOn; }
+
+function select(u){
+  sel = u;
+  for (const k in els) els[k].card.setAttribute("aria-pressed", String(k===u));
+  render(true);
+}
+
+function bump(el){
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches || !el.animate) return;
+  el.animate([{transform:"translateY(-6px)",opacity:.35},{transform:"none",opacity:1}],{duration:260,easing:"ease-out"});
+}
+
+function setNum(k, v){
+  if (last[k] === v) return;
+  last[k] = v; els[k].num.textContent = v; bump(els[k].num);
+}
+
+let lastSec = -1;
+function render(force){
+  const t = T[lang];
+  const now = Date.now();
+  const rem = Math.max(0, LAUNCH - now);
+  const done = rem === 0;
+  const s = Math.floor(rem/1000);
+  const d = Math.floor(s/86400), h = Math.floor(s%86400/3600), m = Math.floor(s%3600/60), sec = s%60;
+
+  // Smooth ring sweep every frame
+  const f = {days: SPAN ? Math.min(1, rem/SPAN) : 0, hours:(rem%864e5)/864e5, minutes:(rem%36e5)/36e5, seconds:(rem%6e4)/6e4};
+  for (const k in els) els[k].ring.style.strokeDashoffset = (C*(1-f[k])).toFixed(2);
+
+  if (!force && s === lastSec) return;
+  lastSec = s;
+
+  setNum("days", pad(d)); setNum("hours", pad(h)); setNum("minutes", pad(m)); setNum("seconds", pad(sec));
+  $("hero").textContent = done ? t.heroDone : `D-${d}`;
+  $("heroLabel").textContent = done ? t.doneLabel : t.heroLabel;
+  $("panel").classList.toggle("done", done);
+
+  const tot = sel==="days" ? (rem/864e5).toFixed(2) : fmt(Math.floor(rem/MS[sel]));
+  $("total").innerHTML = `${t.total} <b>${sel==="days"?tot:tot}</b> ${t[sel]}`;
+
+  const pct = Math.min(100, Math.max(0, (now-START)/SPAN*100));
+  $("fill").style.width = pct.toFixed(2)+"%";
+  $("pbar").setAttribute("aria-valuenow", pct.toFixed(0));
+  $("pPct").textContent = `${pct.toFixed(1)}% ${t.pct}`;
+  document.title = done ? "G-PMS LAUNCH 🎉" : `D-${d} ${pad(h)}:${pad(m)}:${pad(sec)} | G-PMS LAUNCH`;
+}
+
+function loop(){ render(false); requestAnimationFrame(loop); }
+
+units.forEach(u => u.addEventListener("click", () => select(u.dataset.u)));
+$("lang").addEventListener("click", () => {
+  lang = lang==="ar" ? "en" : "ar";
+  try { localStorage.setItem("gpms-lang", lang); } catch(e){}
+  applyLang();
+});
+if (document.fullscreenEnabled) {
+  $("fs").addEventListener("click", () => {
+    try { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } catch(e){}
+  });
+  document.addEventListener("fullscreenchange", fsLabel);
+} else { $("fs").hidden = true; }
+// Catch up instantly when the tab/phone wakes up
+document.addEventListener("visibilitychange", () => { if (!document.hidden) render(true); });
+// Fallback tick keeps time moving even if the tab throttles animation frames
+setInterval(() => render(false), 1000);
+
+select("hours");
+applyLang();
+loop();
+</script>
+</body>
+</html>
